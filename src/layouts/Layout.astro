@@ -1,0 +1,63 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Direct Response Designer & Web Strategist. I give ideas a voice." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style is:global>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #071222;
+      --bg-deep: #040d1a;
+      --surface: #0d1b33;
+      --surface-hover: #112242;
+      --border: #1a2d50;
+      --border-gold: rgba(191, 155, 72, 0.25);
+      --gold: #bf9b48;
+      --gold-light: #d4b060;
+      --gold-muted: rgba(191, 155, 72, 0.6);
+      --gold-glow: rgba(191, 155, 72, 0.12);
+      --text: #e4ddd0;
+      --text-muted: #8a96ab;
+      --text-dim: #556178;
+      --white: #f5f0e8;
+      --navy-text: #071222;
+      --radius: 14px;
+      --transition: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <slot />
+</body>
+</html>

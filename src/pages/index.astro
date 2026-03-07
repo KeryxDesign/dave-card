@@ -1,50 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dave Filippini — Direct Response Designer</title>
-  <meta name="description" content="Direct Response Designer & Web Strategist. I give ideas a voice." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dave Filippini — Direct Response Designer">
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #071222;
-      --bg-deep: #040d1a;
-      --surface: #0d1b33;
-      --surface-hover: #112242;
-      --border: #1a2d50;
-      --border-gold: rgba(191, 155, 72, 0.25);
-      --gold: #bf9b48;
-      --gold-light: #d4b060;
-      --gold-muted: rgba(191, 155, 72, 0.6);
-      --gold-glow: rgba(191, 155, 72, 0.12);
-      --text: #e4ddd0;
-      --text-muted: #8a96ab;
-      --text-dim: #556178;
-      --white: #f5f0e8;
-      --navy-text: #071222;
-      --radius: 14px;
-      --transition: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    html {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
-      color: var(--text);
-      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -94,9 +54,7 @@
       transition: all 0.3s var(--transition);
     }
 
-    .lang-btn:hover {
-      color: var(--text-muted);
-    }
+    .lang-btn:hover { color: var(--text-muted); }
 
     .lang-btn.active {
       color: var(--gold);
@@ -104,16 +62,9 @@
       background: var(--gold-glow);
     }
 
-    .lang-btn .flag {
-      font-size: 16px;
-      line-height: 1;
-    }
+    .lang-btn .flag { font-size: 16px; line-height: 1; }
 
-    .lang-sep {
-      color: var(--text-dim);
-      font-size: 12px;
-      opacity: 0.4;
-    }
+    .lang-sep { color: var(--text-dim); font-size: 12px; opacity: 0.4; }
 
     /* ── Avatar ── */
     .avatar {
@@ -129,10 +80,7 @@
     }
 
     /* ── Header ── */
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
+    .header { text-align: center; margin-bottom: 24px; }
 
     .name {
       font-family: 'Playfair Display', serif;
@@ -166,10 +114,7 @@
       padding: 0 8px;
     }
 
-    .bio strong {
-      color: var(--white);
-      font-weight: 600;
-    }
+    .bio strong { color: var(--white); font-weight: 600; }
 
     /* ── Divider ── */
     .divider {
@@ -192,12 +137,7 @@
     }
 
     /* ── Service Cards ── */
-    .services-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 32px;
-    }
+    .services-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
 
     .service-card {
       display: block;
@@ -209,9 +149,7 @@
       padding: 22px 20px;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.35s var(--transition),
-                  transform 0.35s var(--transition),
-                  box-shadow 0.35s var(--transition);
+      transition: border-color 0.35s var(--transition), transform 0.35s var(--transition), box-shadow 0.35s var(--transition);
     }
 
     .service-card::before {
@@ -230,20 +168,10 @@
       box-shadow: 0 12px 40px rgba(191, 155, 72, 0.1);
     }
 
-    .service-card:hover::before {
-      opacity: 1;
-    }
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover .service-card__arrow { opacity: 1; transform: translateX(0); }
+    .service-card:hover .service-card__icon svg { stroke: var(--gold); }
 
-    .service-card:hover .service-card__arrow {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .service-card:hover .service-card__icon svg {
-      stroke: var(--gold);
-    }
-
-    /* Featured variant */
     .service-card--featured {
       border-color: var(--border-gold);
       background: linear-gradient(135deg, rgba(191, 155, 72, 0.05), var(--surface));
@@ -277,10 +205,7 @@
       transition: stroke 0.35s var(--transition);
     }
 
-    .service-card__content {
-      flex: 1;
-      min-width: 0;
-    }
+    .service-card__content { flex: 1; min-width: 0; }
 
     .service-card__title {
       font-family: 'Playfair Display', serif;
@@ -290,12 +215,7 @@
       color: var(--white);
     }
 
-    .service-card__desc {
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
+    .service-card__desc { font-size: 13px; font-weight: 400; color: var(--text-muted); line-height: 1.5; }
 
     .service-card__badge {
       display: inline-block;
@@ -317,24 +237,14 @@
       align-self: center;
       opacity: 0;
       transform: translateX(-8px);
-      transition: opacity 0.35s var(--transition),
-                  transform 0.35s var(--transition);
+      transition: opacity 0.35s var(--transition), transform 0.35s var(--transition);
       color: var(--gold);
     }
 
-    .service-card__arrow svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--gold);
-      fill: none;
-    }
+    .service-card__arrow svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; }
 
     /* ── Connect Buttons ── */
-    .connect-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
+    .connect-row { display: flex; gap: 12px; margin-bottom: 32px; }
 
     .connect-btn {
       flex: 1;
@@ -351,28 +261,13 @@
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 500;
-      transition: border-color 0.35s var(--transition),
-                  color 0.35s var(--transition),
-                  transform 0.35s var(--transition);
+      transition: border-color 0.35s var(--transition), color 0.35s var(--transition), transform 0.35s var(--transition);
     }
 
-    .connect-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      transform: translateY(-2px);
-    }
+    .connect-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
-    .connect-btn svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      transition: fill 0.35s var(--transition), stroke 0.35s var(--transition);
-    }
-
-    .connect-btn:hover svg {
-      fill: var(--gold);
-      stroke: var(--gold);
-    }
+    .connect-btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: fill 0.35s var(--transition), stroke 0.35s var(--transition); }
+    .connect-btn:hover svg { fill: var(--gold); stroke: var(--gold); }
 
     /* ── After Hours ── */
     .link-card {
@@ -386,31 +281,15 @@
       margin-bottom: 32px;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.35s var(--transition),
-                  transform 0.35s var(--transition),
-                  box-shadow 0.35s var(--transition);
+      transition: border-color 0.35s var(--transition), transform 0.35s var(--transition), box-shadow 0.35s var(--transition);
     }
 
-    .link-card:hover {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px var(--gold-glow);
-    }
-
-    .link-card:hover .service-card__arrow {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .link-card:hover .service-card__icon svg {
-      stroke: var(--gold);
-    }
+    .link-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 32px var(--gold-glow); }
+    .link-card:hover .service-card__arrow { opacity: 1; transform: translateX(0); }
+    .link-card:hover .service-card__icon svg { stroke: var(--gold); }
 
     /* ── Footer ── */
-    .footer {
-      text-align: center;
-      padding-top: 8px;
-    }
+    .footer { text-align: center; padding-top: 8px; }
 
     .status {
       display: inline-flex;
@@ -454,28 +333,17 @@
       font-size: 14px;
       font-weight: 600;
       box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
-      transition: transform 0.3s var(--transition),
-                  box-shadow 0.3s var(--transition);
+      transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition);
     }
 
-    .whatsapp-fab:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 10px 36px rgba(37, 211, 102, 0.45);
-    }
-
-    .whatsapp-fab svg {
-      width: 22px;
-      height: 22px;
-      fill: #fff;
-      flex-shrink: 0;
-    }
+    .whatsapp-fab:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 36px rgba(37, 211, 102, 0.45); }
+    .whatsapp-fab svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
 
     /* ── i18n ── */
     [data-lang-en] { display: none; }
     [data-lang-it] { display: none; }
     html[data-lang="en"] [data-lang-en] { display: inline; }
     html[data-lang="it"] [data-lang-it] { display: inline; }
-    /* block display variants */
     html[data-lang="en"] [data-lang-en].d-block { display: block; }
     html[data-lang="it"] [data-lang-it].d-block { display: block; }
     html[data-lang="en"] [data-lang-en].d-flex { display: flex; }
@@ -494,10 +362,8 @@
       .whatsapp-fab svg { width: 20px; height: 20px; }
     }
   </style>
-</head>
-<body>
-  <div class="card">
 
+  <div class="card">
     <!-- Language Toggle -->
     <div class="lang-toggle">
       <button class="lang-btn" data-set-lang="it" id="btn-it">
@@ -511,7 +377,7 @@
 
     <!-- Header -->
     <header class="header">
-      <img src="dave.jpg" alt="Dave Filippini" class="avatar" />
+      <img src={`${import.meta.env.BASE_URL}dave.jpg`} alt="Dave Filippini" class="avatar" />
       <h1 class="name">Dave Filippini</h1>
       <p class="tagline">
         <span data-lang-en>I Give Ideas a Voice</span>
@@ -525,7 +391,6 @@
       <span data-lang-it>Creo brand che <strong>si fanno notare</strong> e progetto siti web che <strong>convertono</strong>. Se hai un progetto, un prodotto o una visione &mdash; gli do una voce coerente, un volto e una strategia per raggiungere le persone giuste.</span>
     </p>
 
-    <!-- Divider -->
     <div class="divider"></div>
 
     <!-- What I Do -->
@@ -535,12 +400,9 @@
     </p>
 
     <div class="services-grid">
-
-      <!-- Card 1: Direct Response Designer -->
-      <a href="https://keryxdesign.com" target="_blank" rel="noopener noreferrer" class="service-card service-card--featured">
+      <a href="https://keryxdesign.com" target="_blank" rel="noopener noreferrer" class="service-card service-card--featured" data-track="keryx-design">
         <div class="service-card__row">
           <div class="service-card__icon">
-            <!-- target/bullseye icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
             </svg>
@@ -553,18 +415,14 @@
             </div>
           </div>
           <div class="service-card__arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
           </div>
         </div>
       </a>
 
-      <!-- Card 2: Websites from 297€ -->
-      <a href="https://keryxdesign.com/it/keryxsite" target="_blank" rel="noopener noreferrer" class="service-card" id="website-card">
+      <a href="https://keryxdesign.com/it/keryxsite" target="_blank" rel="noopener noreferrer" class="service-card" id="website-card" data-track="websites">
         <div class="service-card__row">
           <div class="service-card__icon">
-            <!-- code-bracket icon -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
             </svg>
@@ -584,16 +442,12 @@
             </div>
           </div>
           <div class="service-card__arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
           </div>
         </div>
       </a>
-
     </div>
 
-    <!-- Divider -->
     <div class="divider"></div>
 
     <!-- Connect -->
@@ -603,13 +457,13 @@
     </p>
 
     <div class="connect-row">
-      <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="connect-btn">
+      <a href="https://linkedin.com/in/" target="_blank" rel="noopener noreferrer" class="connect-btn" data-track="linkedin">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
         LinkedIn
       </a>
-      <a href="mailto:info@keryxdesign.com" class="connect-btn">
+      <a href="mailto:info@keryxdesign.com" class="connect-btn" data-track="email">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
         </svg>
@@ -617,13 +471,12 @@
       </a>
     </div>
 
-    <!-- Divider -->
     <div class="divider"></div>
 
     <!-- After Hours -->
     <p class="section-label">After Hours</p>
 
-    <a href="#" class="link-card">
+    <a href="#" class="link-card" data-track="hotaru42">
       <div class="service-card__row">
         <div class="service-card__icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -638,9 +491,7 @@
           </div>
         </div>
         <div class="service-card__arrow">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
         </div>
       </div>
     </a>
@@ -653,11 +504,10 @@
         <span data-lang-it>Disponibile per progetti</span>
       </div>
     </footer>
-
   </div>
 
   <!-- WhatsApp FAB -->
-  <a class="whatsapp-fab" id="wa-fab" href="#" target="_blank" rel="noopener noreferrer">
+  <a class="whatsapp-fab" id="wa-fab" href="#" target="_blank" rel="noopener noreferrer" data-track="whatsapp">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
     </svg>
@@ -666,57 +516,76 @@
   </a>
 
   <script>
+    // ── i18n ──
     (function() {
-      // ── i18n: auto-detect browser language, default to English ──
-      var STORAGE_KEY = 'dave-card-lang';
-      var saved = localStorage.getItem(STORAGE_KEY);
-      var lang;
+      const STORAGE_KEY = 'dave-card-lang';
+      const saved = localStorage.getItem(STORAGE_KEY);
+      let lang: string;
 
       if (saved === 'it' || saved === 'en') {
         lang = saved;
       } else {
-        var browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+        const browserLang = (navigator.language || 'en').toLowerCase();
         lang = browserLang.startsWith('it') ? 'it' : 'en';
       }
 
-      function setLang(l) {
+      function setLang(l: string) {
         lang = l;
         localStorage.setItem(STORAGE_KEY, l);
         document.documentElement.setAttribute('data-lang', l);
         document.documentElement.lang = l;
 
-        // Update toggle buttons
-        document.getElementById('btn-it').classList.toggle('active', l === 'it');
-        document.getElementById('btn-en').classList.toggle('active', l === 'en');
+        document.getElementById('btn-it')!.classList.toggle('active', l === 'it');
+        document.getElementById('btn-en')!.classList.toggle('active', l === 'en');
 
-        // Update page title
-        document.title = l === 'it'
-          ? 'Dave Filippini — Direct Response Designer'
-          : 'Dave Filippini — Direct Response Designer';
+        document.title = 'Dave Filippini — Direct Response Designer';
 
-        // Update WhatsApp link with language-specific message
-        var waMsg = l === 'it'
+        const waMsg = l === 'it'
           ? 'Ciao Dave! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'
-          : 'Hi Dave! I found you through your personal site. I\'d like to learn more about your services.';
-        document.getElementById('wa-fab').href =
-          'https://wa.me/355695822380?text=' + encodeURIComponent(waMsg);
+          : "Hi Dave! I found you through your personal site. I'd like to learn more about your services.";
+        document.getElementById('wa-fab')!.setAttribute('href',
+          'https://wa.me/355695822380?text=' + encodeURIComponent(waMsg));
 
-        // Update website link based on language
-        var websiteCard = document.getElementById('website-card');
+        const websiteCard = document.getElementById('website-card');
         if (websiteCard) {
-          websiteCard.href = l === 'it'
+          websiteCard.setAttribute('href', l === 'it'
             ? 'https://keryxdesign.com/it/keryxsite'
-            : 'https://keryxdesign.com/it/keryxsite';
+            : 'https://keryxdesign.com/it/keryxsite');
         }
       }
 
-      // Init
       setLang(lang);
+      document.getElementById('btn-it')!.addEventListener('click', () => setLang('it'));
+      document.getElementById('btn-en')!.addEventListener('click', () => setLang('en'));
+    })();
 
-      // Toggle buttons
-      document.getElementById('btn-it').addEventListener('click', function() { setLang('it'); });
-      document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
+    // ── Click Tracking ──
+    (function() {
+      const CLICKS_KEY = 'dave-card-clicks';
+
+      function getClicks(): Record<string, { count: number; last: string; history: string[] }> {
+        try { return JSON.parse(localStorage.getItem(CLICKS_KEY) || '{}'); }
+        catch { return {}; }
+      }
+
+      function trackClick(name: string) {
+        const clicks = getClicks();
+        const now = new Date().toISOString();
+        if (!clicks[name]) clicks[name] = { count: 0, last: '', history: [] };
+        clicks[name].count++;
+        clicks[name].last = now;
+        clicks[name].history.push(now);
+        // Keep only last 100 entries per link
+        if (clicks[name].history.length > 100) clicks[name].history = clicks[name].history.slice(-100);
+        localStorage.setItem(CLICKS_KEY, JSON.stringify(clicks));
+      }
+
+      document.querySelectorAll('[data-track]').forEach(el => {
+        el.addEventListener('click', () => {
+          const name = (el as HTMLElement).dataset.track!;
+          trackClick(name);
+        });
+      });
     })();
   </script>
-</body>
-</html>
+</Layout>
