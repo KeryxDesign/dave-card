@@ -363,8 +363,11 @@ import Layout from '../layouts/Layout.astro';
     .connect-btn--wa:hover { border-color: #25D366; color: #25D366; }
     .connect-btn--wa:hover svg { fill: #25D366; }
 
-    /* ── Footer ── */
-    .footer { text-align: center; padding-top: 8px; }
+    /* ── Availability Status ── */
+    .status-bar {
+      text-align: center;
+      margin-bottom: 16px;
+    }
 
     .status {
       display: inline-flex;
@@ -374,6 +377,10 @@ import Layout from '../layouts/Layout.astro';
       font-weight: 500;
       color: var(--text-dim);
       letter-spacing: 0.5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
     }
 
     .status-dot {
@@ -427,6 +434,15 @@ import Layout from '../layouts/Layout.astro';
       <button class="lang-btn" data-set-lang="en" id="btn-en">
         <span class="flag">&#127468;&#127463;</span> EN
       </button>
+    </div>
+
+    <!-- Availability Status -->
+    <div class="status-bar">
+      <div class="status">
+        <span class="status-dot"></span>
+        <span data-lang-en>2 projects available for March</span>
+        <span data-lang-it>2 progetti disponibili per marzo</span>
+      </div>
     </div>
 
     <!-- Header -->
@@ -708,14 +724,6 @@ import Layout from '../layouts/Layout.astro';
       </a>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="status">
-        <span class="status-dot"></span>
-        <span data-lang-en>Available for projects</span>
-        <span data-lang-it>Disponibile per progetti</span>
-      </div>
-    </footer>
   </div>
 
   <script>
