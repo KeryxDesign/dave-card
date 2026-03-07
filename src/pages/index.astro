@@ -116,6 +116,96 @@ import Layout from '../layouts/Layout.astro';
 
     .bio strong { color: var(--white); font-weight: 600; }
 
+    /* ── Testimonials Carousel ── */
+    .testimonials {
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    }
+
+    .testimonials__track {
+      display: flex;
+      gap: 16px;
+      animation: scroll-testimonials 35s linear infinite;
+      width: max-content;
+    }
+
+    .testimonials__track:hover { animation-play-state: paused; }
+
+    @keyframes scroll-testimonials {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .testimonial {
+      flex-shrink: 0;
+      width: 280px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      position: relative;
+    }
+
+    .testimonial__quote {
+      font-size: 13px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .testimonial__quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-style: normal;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 0;
+      vertical-align: -0.35em;
+      margin-right: 2px;
+    }
+
+    .testimonial__author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .testimonial__avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-gold);
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .testimonial__info { min-width: 0; }
+
+    .testimonial__name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .testimonial__role {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-dim);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 480px) {
+      .testimonial { width: 250px; padding: 14px 16px; }
+      .testimonial__quote { font-size: 12px; }
+    }
+
     /* ── Divider ── */
     .divider {
       height: 1px;
@@ -244,49 +334,34 @@ import Layout from '../layouts/Layout.astro';
     .service-card__arrow svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; }
 
     /* ── Connect Buttons ── */
-    .connect-row { display: flex; gap: 12px; margin-bottom: 32px; }
+    .connect-row { display: flex; gap: 10px; margin-bottom: 32px; }
 
     .connect-btn {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       text-decoration: none;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 14px 16px;
+      padding: 13px 10px;
       color: var(--text-muted);
       font-family: 'Inter', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
       transition: border-color 0.35s var(--transition), color 0.35s var(--transition), transform 0.35s var(--transition);
     }
 
     .connect-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
-    .connect-btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: fill 0.35s var(--transition), stroke 0.35s var(--transition); }
+    .connect-btn svg { width: 16px; height: 16px; flex-shrink: 0; transition: fill 0.35s var(--transition), stroke 0.35s var(--transition); }
     .connect-btn:hover svg { fill: var(--gold); stroke: var(--gold); }
 
-    /* ── After Hours ── */
-    .link-card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px 20px;
-      margin-bottom: 32px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.35s var(--transition), transform 0.35s var(--transition), box-shadow 0.35s var(--transition);
-    }
-
-    .link-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 32px var(--gold-glow); }
-    .link-card:hover .service-card__arrow { opacity: 1; transform: translateX(0); }
-    .link-card:hover .service-card__icon svg { stroke: var(--gold); }
+    .connect-btn--wa { border-color: rgba(37, 211, 102, 0.25); }
+    .connect-btn--wa:hover { border-color: #25D366; color: #25D366; }
+    .connect-btn--wa:hover svg { fill: #25D366; }
 
     /* ── Footer ── */
     .footer { text-align: center; padding-top: 8px; }
@@ -315,29 +390,9 @@ import Layout from '../layouts/Layout.astro';
       50% { opacity: 0.4; box-shadow: 0 0 16px rgba(191, 155, 72, 0.3); }
     }
 
-    /* ── WhatsApp FAB ── */
-    .whatsapp-fab {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 60px;
-      padding: 14px 22px 14px 18px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
-      transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition);
-    }
-
-    .whatsapp-fab:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 10px 36px rgba(37, 211, 102, 0.45); }
-    .whatsapp-fab svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+    /* ── Logo icons ── */
+    .service-card__icon--logo { background: transparent; border: none; }
+    .service-card__icon--logo svg { width: 28px; height: 28px; stroke: none; }
 
     /* ── i18n ── */
     [data-lang-en] { display: none; }
@@ -357,9 +412,8 @@ import Layout from '../layouts/Layout.astro';
       .bio { font-size: 13px; padding: 0; }
       .service-card { padding: 18px 16px; }
       .service-card__icon { width: 38px; height: 38px; }
-      .connect-btn { padding: 12px 12px; font-size: 12px; }
-      .whatsapp-fab { bottom: 18px; right: 18px; padding: 12px 18px 12px 14px; font-size: 13px; }
-      .whatsapp-fab svg { width: 20px; height: 20px; }
+      .connect-btn { padding: 11px 8px; font-size: 11px; gap: 6px; }
+      .connect-btn svg { width: 14px; height: 14px; }
     }
   </style>
 
@@ -391,6 +445,154 @@ import Layout from '../layouts/Layout.astro';
       <span data-lang-it>Creo brand che <strong>si fanno notare</strong> e progetto siti web che <strong>convertono</strong>. Se hai un progetto, un prodotto o una visione &mdash; gli do una voce coerente, un volto e una strategia per raggiungere le persone giuste.</span>
     </p>
 
+    <!-- Testimonials Carousel -->
+    <div class="testimonials">
+      <div class="testimonials__track">
+        <!-- Set 1 -->
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>The only one in Italy I trust with my clients' work. His ability to elevate my words is impeccable.</span><span data-lang-it>L'unico in Italia a cui affido i lavori dei miei clienti. La sua capacità di elevare le mie parole è impeccabile.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/daniel-porro.webp" alt="Daniel Porro" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Daniel Porro</div>
+              <div class="testimonial__role">Copywriter</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>In two weeks of pre-launch I almost reached break-even. Davide combines design and strategy.</span><span data-lang-it>In due settimane di pre-lancio ho quasi raggiunto il break-even. Davide unisce design e strategia.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/nicola-serafini.webp" alt="Nicola Serafini" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Nicola Serafini</div>
+              <div class="testimonial__role">Senior Copywriter</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Davide managed to combine graphic design and strategy perfectly. Every visual element made sense.</span><span data-lang-it>Davide è riuscito a combinare grafica e strategia perfettamente. Ogni elemento visivo aveva senso.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/massimo-usai.webp" alt="Massimo Usai" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Massimo Usai</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>A highly professional result that reflects the care of our services.</span><span data-lang-it>Un risultato altamente professionale che riflette la cura dei nostri servizi.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/andrea-dallan.webp" alt="Andrea Dallan" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Andrea Dallan</div>
+              <div class="testimonial__role">CEO, Dallan S.p.a.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>I couldn't imagine entrusting my materials to any other designer in the world.</span><span data-lang-it>Non potrei immaginare di affidare i miei materiali a nessun altro designer al mondo.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/fabrizio-marino.webp" alt="Fabrizio Marino" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Fabrizio Marino</div>
+              <div class="testimonial__role">3D4Steel</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Strategic design that speaks directly to the customer. Measurable results from day one.</span><span data-lang-it>Design strategico che parla direttamente al cliente. Risultati misurabili dal primo giorno.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/giacomo-brandi.webp" alt="Giacomo Brandi" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Giacomo Brandi</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Professionalism and attention to detail. The design made the difference in our results.</span><span data-lang-it>Professionalità e attenzione al dettaglio. Il design ha fatto la differenza nei nostri risultati.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/michelangelo-munarini.webp" alt="Michelangelo Munarini" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Michelangelo Munarini</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>The only one in Italy I trust with my clients' work. His ability to elevate my words is impeccable.</span><span data-lang-it>L'unico in Italia a cui affido i lavori dei miei clienti. La sua capacità di elevare le mie parole è impeccabile.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/daniel-porro.webp" alt="Daniel Porro" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Daniel Porro</div>
+              <div class="testimonial__role">Copywriter</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>In two weeks of pre-launch I almost reached break-even. Davide combines design and strategy.</span><span data-lang-it>In due settimane di pre-lancio ho quasi raggiunto il break-even. Davide unisce design e strategia.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/nicola-serafini.webp" alt="Nicola Serafini" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Nicola Serafini</div>
+              <div class="testimonial__role">Senior Copywriter</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Davide managed to combine graphic design and strategy perfectly. Every visual element made sense.</span><span data-lang-it>Davide è riuscito a combinare grafica e strategia perfettamente. Ogni elemento visivo aveva senso.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/massimo-usai.webp" alt="Massimo Usai" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Massimo Usai</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>A highly professional result that reflects the care of our services.</span><span data-lang-it>Un risultato altamente professionale che riflette la cura dei nostri servizi.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/andrea-dallan.webp" alt="Andrea Dallan" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Andrea Dallan</div>
+              <div class="testimonial__role">CEO, Dallan S.p.a.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>I couldn't imagine entrusting my materials to any other designer in the world.</span><span data-lang-it>Non potrei immaginare di affidare i miei materiali a nessun altro designer al mondo.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/fabrizio-marino.webp" alt="Fabrizio Marino" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Fabrizio Marino</div>
+              <div class="testimonial__role">3D4Steel</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Strategic design that speaks directly to the customer. Measurable results from day one.</span><span data-lang-it>Design strategico che parla direttamente al cliente. Risultati misurabili dal primo giorno.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/giacomo-brandi.webp" alt="Giacomo Brandi" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Giacomo Brandi</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Professionalism and attention to detail. The design made the difference in our results.</span><span data-lang-it>Professionalità e attenzione al dettaglio. Il design ha fatto la differenza nei nostri risultati.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/michelangelo-munarini.webp" alt="Michelangelo Munarini" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Michelangelo Munarini</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="divider"></div>
 
     <!-- What I Do -->
@@ -400,15 +602,18 @@ import Layout from '../layouts/Layout.astro';
     </p>
 
     <div class="services-grid">
+      <!-- Card 1: Keryx Design (featured) -->
       <a href="https://keryxdesign.com" target="_blank" rel="noopener noreferrer" class="service-card service-card--featured" data-track="keryx-design">
         <div class="service-card__row">
-          <div class="service-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          <div class="service-card__icon service-card__icon--logo">
+            <!-- Keryx "K" monogram -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="rgba(191,155,72,0.12)"/>
+              <path d="M11 8v16M11 16l8-8M11 16l8 8" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="service-card__content">
-            <div class="service-card__title">Direct Response Designer</div>
+            <div class="service-card__title">Keryx Design</div>
             <div class="service-card__desc">
               <span data-lang-en>Branding, strategy &amp; design that drives action and measurable results.</span>
               <span data-lang-it>Branding, strategia &amp; design che spinge all'azione e genera risultati misurabili.</span>
@@ -420,11 +625,14 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </a>
 
+      <!-- Card 2: Websites That Convert -->
       <a href="https://keryxdesign.com/it/keryxsite" target="_blank" rel="noopener noreferrer" class="service-card" id="website-card" data-track="websites">
         <div class="service-card__row">
-          <div class="service-card__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+          <div class="service-card__icon service-card__icon--logo">
+            <!-- Code/web icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="rgba(191,155,72,0.08)"/>
+              <path d="M12 10l-5 6 5 6M20 10l5 6-5 6M18 8l-4 16" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="service-card__content">
@@ -439,6 +647,32 @@ import Layout from '../layouts/Layout.astro';
             <div class="service-card__badge">
               <span data-lang-en>From $320</span>
               <span data-lang-it>Da 297&euro;</span>
+            </div>
+          </div>
+          <div class="service-card__arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3: Hotaru42 -->
+      <a href="#" class="service-card" data-track="hotaru42">
+        <div class="service-card__row">
+          <div class="service-card__icon service-card__icon--logo">
+            <!-- Hotaru42 firefly icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="rgba(155,89,182,0.1)"/>
+              <circle cx="16" cy="14" r="3" fill="#9b59b6" opacity="0.7"/>
+              <circle cx="16" cy="14" r="5" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+              <path d="M13 18q3 6 6 0" stroke="#9b59b6" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M12 10l-2-3M20 10l2-3" stroke="#9b59b6" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="service-card__content">
+            <div class="service-card__title">Hotaru42</div>
+            <div class="service-card__desc">
+              <span data-lang-en>Music Project</span>
+              <span data-lang-it>Progetto Musicale</span>
             </div>
           </div>
           <div class="service-card__arrow">
@@ -469,32 +703,13 @@ import Layout from '../layouts/Layout.astro';
         </svg>
         Email
       </a>
+      <a class="connect-btn connect-btn--wa" id="wa-fab" href="#" target="_blank" rel="noopener noreferrer" data-track="whatsapp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+        WhatsApp
+      </a>
     </div>
-
-    <div class="divider"></div>
-
-    <!-- After Hours -->
-    <p class="section-label">After Hours</p>
-
-    <a href="#" class="link-card" data-track="hotaru42">
-      <div class="service-card__row">
-        <div class="service-card__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
-          </svg>
-        </div>
-        <div class="service-card__content">
-          <div class="service-card__title">Hotaru42</div>
-          <div class="service-card__desc">
-            <span data-lang-en>Music Project</span>
-            <span data-lang-it>Progetto Musicale</span>
-          </div>
-        </div>
-        <div class="service-card__arrow">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
-        </div>
-      </div>
-    </a>
 
     <!-- Footer -->
     <footer class="footer">
@@ -505,15 +720,6 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </footer>
   </div>
-
-  <!-- WhatsApp FAB -->
-  <a class="whatsapp-fab" id="wa-fab" href="#" target="_blank" rel="noopener noreferrer" data-track="whatsapp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-    </svg>
-    <span data-lang-en>Chat with me</span>
-    <span data-lang-it>Scrivimi</span>
-  </a>
 
   <script>
     // ── i18n ──
