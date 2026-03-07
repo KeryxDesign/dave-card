@@ -308,7 +308,9 @@ import Layout from '../layouts/Layout.astro';
     .service-card__desc { font-size: 13px; font-weight: 400; color: var(--text-muted); line-height: 1.5; }
 
     .service-card__badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       margin-top: 10px;
       font-size: 11px;
       font-weight: 700;
@@ -318,6 +320,21 @@ import Layout from '../layouts/Layout.astro';
       border-radius: 100px;
       padding: 5px 14px;
       letter-spacing: 0.5px;
+    }
+
+    .price-old {
+      text-decoration: line-through;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .service-card__slots {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.3px;
     }
 
     .service-card__arrow {
@@ -668,8 +685,11 @@ import Layout from '../layouts/Layout.astro';
               <span data-lang-it>Siti web professionali progettati per trasformare visitatori in clienti.</span>
             </div>
             <div class="service-card__badge">
-              <span data-lang-en>From $320</span>
-              <span data-lang-it>Da 297&euro;</span>
+              <span class="price-old">600&euro;</span> 297&euro;
+            </div>
+            <div class="service-card__slots">
+              <span data-lang-en>Only 2 spots left for March</span>
+              <span data-lang-it>Ancora 2 posti disponibili per marzo</span>
             </div>
           </div>
           <div class="service-card__arrow">
