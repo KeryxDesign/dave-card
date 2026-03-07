@@ -418,6 +418,34 @@ import Layout from '../layouts/Layout.astro';
     .service-card__icon--logo { background: transparent; border: none; }
     .service-card__icon--logo svg { width: 28px; height: 28px; stroke: none; }
 
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .footer__legal {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 11px;
+    }
+
+    .footer__links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s var(--transition);
+    }
+
+    .footer__links a:hover { color: var(--gold); }
+
     /* ── i18n ── */
     [data-lang-en] { display: none; }
     [data-lang-it] { display: none; }
@@ -443,6 +471,8 @@ import Layout from '../layouts/Layout.astro';
       .service-card__badge { font-size: 13px; padding: 6px 16px; }
       .connect-btn { padding: 14px 12px; font-size: 14px; gap: 8px; }
       .connect-btn svg { width: 17px; height: 17px; }
+      .footer__legal { font-size: 12px; }
+      .footer__links { font-size: 12px; }
     }
   </style>
 
@@ -752,6 +782,17 @@ import Layout from '../layouts/Layout.astro';
         WhatsApp
       </a>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__legal">
+        Keryx Design di Davide Filippini — P.IVA M26525203S
+      </p>
+      <div class="footer__links">
+        <a href="https://keryxdesign.com/it/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        <a href="mailto:info@keryxdesign.com">info@keryxdesign.com</a>
+      </div>
+    </footer>
 
   </div>
 
