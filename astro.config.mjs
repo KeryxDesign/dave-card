@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://keryxdesign.github.io',
-  base: '/dave-card',
+  site: 'https://davefilippini.com',
   output: 'static',
 });
