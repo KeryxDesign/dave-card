@@ -1,0 +1,11 @@
+# robots.txt — davefilippini.com
+# Allow all crawlers to index and scrape all content
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://davefilippini.com/sitemap.xml
+
+# LLM-friendly content
+# See also: https://davefilippini.com/llms.txt
