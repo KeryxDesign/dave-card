@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Dave Filippini — Imprenditore con radici nel design a risposta diretta">
+<Layout title="Dave Filippini — Entrepreneur & Founder of Keryx Design">
   <style>
     body {
       display: flex;
@@ -108,12 +108,12 @@ import Layout from '../layouts/Layout.astro';
       font-size: 14px;
       font-weight: 300;
       line-height: 1.8;
-      color: var(--text-muted);
+      color: var(--text);
       margin-bottom: 32px;
       padding: 0 8px;
     }
 
-    .bio strong { color: var(--white); font-weight: 600; }
+    .bio strong { color: var(--gold-light); font-weight: 600; }
 
     /* ── Testimonials Carousel ── */
     .testimonials-wrapper {
@@ -254,8 +254,8 @@ import Layout from '../layouts/Layout.astro';
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0.15;
-      margin: 0 0 32px 0;
+      opacity: 0.25;
+      margin: 8px 0 32px 0;
     }
 
     /* ── Section Label ── */
@@ -283,6 +283,7 @@ import Layout from '../layouts/Layout.astro';
       padding: 22px 20px;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
       transition: border-color 0.35s var(--transition), transform 0.35s var(--transition), box-shadow 0.35s var(--transition);
     }
 
@@ -546,8 +547,8 @@ import Layout from '../layouts/Layout.astro';
       <img src={`${import.meta.env.BASE_URL}dave.jpg`} alt="Dave Filippini" class="avatar" />
       <h1 class="name">Dave Filippini</h1>
       <p class="tagline">
-        <span data-lang-en>Entrepreneur with roots in direct response design</span>
-        <span data-lang-it>Imprenditore con radici nel design a risposta diretta</span>
+        <span data-lang-en>Entrepreneur &amp; Founder of Keryx Design</span>
+        <span data-lang-it>Imprenditore &amp; Fondatore di Keryx Design</span>
       </p>
     </header>
 
@@ -870,8 +871,8 @@ import Layout from '../layouts/Layout.astro';
         document.getElementById('btn-en')!.classList.toggle('active', l === 'en');
 
         document.title = l === 'it'
-          ? 'Dave Filippini — Imprenditore con radici nel design a risposta diretta'
-          : 'Dave Filippini — Entrepreneur with roots in direct response design';
+          ? 'Dave Filippini — Imprenditore & Fondatore di Keryx Design'
+          : 'Dave Filippini — Entrepreneur & Founder of Keryx Design';
 
         const waMsg = l === 'it'
           ? 'Ciao Dave! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'
