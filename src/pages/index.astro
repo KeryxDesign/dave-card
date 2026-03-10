@@ -127,8 +127,8 @@ import Layout from '../layouts/Layout.astro';
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
     }
 
     .testimonials::-webkit-scrollbar { display: none; }
@@ -175,6 +175,7 @@ import Layout from '../layouts/Layout.astro';
       display: flex;
       gap: 16px;
       width: max-content;
+      padding: 0 calc(50% - 140px);
     }
 
     .testimonial {
@@ -185,6 +186,8 @@ import Layout from '../layouts/Layout.astro';
       border-radius: var(--radius);
       padding: 18px 20px;
       position: relative;
+      scroll-snap-align: center;
+      transition: opacity 0.3s var(--transition);
     }
 
     .testimonial__quote {
@@ -921,69 +924,67 @@ import Layout from '../layouts/Layout.astro';
       const container = document.querySelector('.testimonials') as HTMLElement;
       if (!container) return;
 
-      let isUserInteracting = false;
-      let resumeTimer: number;
-      const SPEED = 0.5; // px per frame (~30px/s at 60fps)
-      const RESUME_DELAY = 4000; // resume auto-scroll after 4s idle
+      const CARD_WIDTH = 296; // 280px + 16px gap
+      const AUTO_DELAY = 4000; // auto-advance every 4s
+      const RESUME_DELAY = 5000; // resume after user interaction
 
-      function autoScroll() {
-        if (!isUserInteracting) {
-          container.scrollLeft += SPEED;
-          // Seamless loop: when past the first set, jump back
-          const half = container.scrollWidth / 2;
-          if (container.scrollLeft >= half) {
-            container.scrollLeft -= half;
+      let autoTimer: number;
+      let isUserInteracting = false;
+
+      function scrollByCard(direction: number) {
+        container.scrollBy({ left: direction * CARD_WIDTH, behavior: 'smooth' });
+      }
+
+      function startAuto() {
+        stopAuto();
+        autoTimer = window.setInterval(() => {
+          if (!isUserInteracting) {
+            scrollByCard(1);
           }
-        }
-        requestAnimationFrame(autoScroll);
+        }, AUTO_DELAY);
+      }
+
+      function stopAuto() {
+        clearInterval(autoTimer);
       }
 
       function pause() {
         isUserInteracting = true;
-        clearTimeout(resumeTimer);
+        stopAuto();
       }
 
       function scheduleResume() {
-        clearTimeout(resumeTimer);
-        resumeTimer = window.setTimeout(() => {
+        window.setTimeout(() => {
           isUserInteracting = false;
+          startAuto();
         }, RESUME_DELAY);
       }
 
-      // Touch: pause while swiping, resume after
+      // Touch: pause while swiping
       container.addEventListener('touchstart', pause, { passive: true });
-      container.addEventListener('touchend', scheduleResume, { passive: true });
+      container.addEventListener('touchend', () => scheduleResume(), { passive: true });
 
       // Mouse: pause on hover
       container.addEventListener('mouseenter', pause);
-      container.addEventListener('mouseleave', scheduleResume);
-
-      // Detect scroll end (including momentum) to schedule resume
-      let scrollEndTimer: number;
-      container.addEventListener('scroll', () => {
-        pause();
-        clearTimeout(scrollEndTimer);
-        scrollEndTimer = window.setTimeout(scheduleResume, 150);
-      }, { passive: true });
+      container.addEventListener('mouseleave', () => scheduleResume());
 
       // Arrow buttons
       const prevBtn = document.getElementById('testimonials-prev');
       const nextBtn = document.getElementById('testimonials-next');
-      const cardWidth = 296; // 280px + 16px gap
 
       prevBtn?.addEventListener('click', () => {
         pause();
-        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        scrollByCard(-1);
         scheduleResume();
       });
 
       nextBtn?.addEventListener('click', () => {
         pause();
-        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        scrollByCard(1);
         scheduleResume();
       });
 
-      requestAnimationFrame(autoScroll);
+      startAuto();
     })();
   </script>
 </Layout>
