@@ -425,40 +425,6 @@ import Layout from '../layouts/Layout.astro';
     .connect-btn--wa:hover { border-color: #25D366; color: #25D366; }
     .connect-btn--wa:hover svg { fill: #25D366; }
 
-    /* ── Availability Status ── */
-    .status-bar {
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 0.5px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 6px 16px;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 8px rgba(191, 155, 72, 0.6);
-      animation: pulse 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(191, 155, 72, 0.6); }
-      50% { opacity: 0.4; box-shadow: 0 0 16px rgba(191, 155, 72, 0.3); }
-    }
-
     /* ── Logo icons ── */
     .service-card__icon--logo { background: transparent; border: none; }
     .service-card__icon--logo svg { width: 28px; height: 28px; stroke: none; }
@@ -507,7 +473,6 @@ import Layout from '../layouts/Layout.astro';
       .name { font-size: 32px; }
       .tagline { font-size: 13px; letter-spacing: 2px; }
       .bio { font-size: 16px; line-height: 1.7; padding: 0; }
-      .status { font-size: 13px; padding: 8px 18px; }
       .section-label { font-size: 14px; letter-spacing: 2.5px; }
       .service-card { padding: 20px 18px; }
       .service-card__icon { width: 40px; height: 40px; }
@@ -533,19 +498,11 @@ import Layout from '../layouts/Layout.astro';
       </button>
     </div>
 
-    <!-- Availability Status -->
-    <div class="status-bar">
-      <div class="status">
-        <span class="status-dot"></span>
-        <span data-lang-en>2 projects available for March</span>
-        <span data-lang-it>2 progetti disponibili per marzo</span>
-      </div>
-    </div>
 
     <!-- Header -->
     <header class="header">
       <img src={`${import.meta.env.BASE_URL}dave.jpg`} alt="Dave Filippini" class="avatar" />
-      <h1 class="name">Dave Filippini</h1>
+      <h1 class="name"><span data-lang-en>Dave Filippini</span><span data-lang-it>Davide Filippini</span></h1>
       <p class="tagline">
         <span data-lang-en>Entrepreneur &amp; Founder of Keryx Design</span>
         <span data-lang-it>Imprenditore &amp; Fondatore di Keryx Design</span>
@@ -569,77 +526,6 @@ import Layout from '../layouts/Layout.astro';
     <div class="testimonials">
       <div class="testimonials__track">
         <!-- Set 1 -->
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>The only one in Italy I trust with my clients' work. His ability to elevate my words is impeccable.</span><span data-lang-it>L'unico in Italia a cui affido i lavori dei miei clienti. La sua capacità di elevare le mie parole è impeccabile.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/daniel-porro.webp" alt="Daniel Porro" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Daniel Porro</div>
-              <div class="testimonial__role">Copywriter</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>In two weeks of pre-launch I almost reached break-even. Davide combines design and strategy.</span><span data-lang-it>Nelle due settimane di pre-lancio ho quasi raggiunto il break-even. Davide unisce design e strategia.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/nicola-serafini.webp" alt="Nicola Serafini" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Nicola Serafini</div>
-              <div class="testimonial__role">Copywriter Senior</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>Davide managed to combine graphic design and strategy perfectly. Every visual element made sense even without explanations.</span><span data-lang-it>Davide è riuscito a combinare perfettamente graphic design e strategia. Ogni elemento visivo aveva senso anche senza spiegazioni.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/massimo-usai.webp" alt="Massimo Usai" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Massimo Usai</div>
-              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>A highly professional result that reflects the care of our services.</span><span data-lang-it>Risultato altamente professionale che riflette la cura dei nostri servizi.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/andrea-dallan.webp" alt="Andrea Dallan" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Andrea Dallan</div>
-              <div class="testimonial__role">CEO, Dallan S.p.a.</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>I couldn't imagine entrusting my materials to any other designer in the world.</span><span data-lang-it>Non potrei immaginare di affidare i miei materiali a nessun altro designer al mondo.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/fabrizio-marino.webp" alt="Fabrizio Marino" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Fabrizio Marino</div>
-              <div class="testimonial__role">3D4Steel</div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>Strategic design that speaks directly to the customer. Measurable results from day one.</span><span data-lang-it>Design strategico che parla direttamente al cliente. Risultati misurabili fin dal primo giorno.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/giacomo-brandi.webp" alt="Giacomo Brandi" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Giacomo Brandi</div>
-              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="testimonial">
-          <p class="testimonial__quote"><span data-lang-en>Professionalism and attention to detail. The design made the difference in our results.</span><span data-lang-it>Professionalità e attenzione ai dettagli. Il design ha fatto la differenza nei nostri risultati.</span></p>
-          <div class="testimonial__author">
-            <img class="testimonial__avatar" src="/testimonials/michelangelo-munarini.webp" alt="Michelangelo Munarini" loading="lazy" />
-            <div class="testimonial__info">
-              <div class="testimonial__name">Michelangelo Munarini</div>
-              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
-            </div>
-          </div>
-        </div>
-        <!-- Set 2 (duplicate for seamless loop) -->
         <div class="testimonial">
           <p class="testimonial__quote"><span data-lang-en>The only one in Italy I trust with my clients' work. His ability to elevate my words is impeccable.</span><span data-lang-it>L'unico in Italia a cui affido i lavori dei miei clienti. La sua capacità di elevare le mie parole è impeccabile.</span></p>
           <div class="testimonial__author">
@@ -871,11 +757,11 @@ import Layout from '../layouts/Layout.astro';
         document.getElementById('btn-en')!.classList.toggle('active', l === 'en');
 
         document.title = l === 'it'
-          ? 'Dave Filippini — Imprenditore & Fondatore di Keryx Design'
+          ? 'Davide Filippini — Imprenditore & Fondatore di Keryx Design'
           : 'Dave Filippini — Entrepreneur & Founder of Keryx Design';
 
         const waMsg = l === 'it'
-          ? 'Ciao Dave! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'
+          ? 'Ciao Davide! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'
           : "Hi Dave! I found you through your personal site. I'd like to learn more about your services.";
         document.getElementById('wa-fab')!.setAttribute('href',
           'https://wa.me/355695822380?text=' + encodeURIComponent(waMsg));
@@ -928,19 +814,34 @@ import Layout from '../layouts/Layout.astro';
       const CARD_WIDTH = 296; // 280px + 16px gap
       const AUTO_DELAY = 4000; // auto-advance every 4s
       const RESUME_DELAY = 5000; // resume after user interaction
+      const cards = container.querySelectorAll('.testimonial');
+      const totalCards = cards.length;
+      let currentIndex = 0;
 
       let autoTimer: number;
       let isUserInteracting = false;
 
-      function scrollByCard(direction: number) {
-        container.scrollBy({ left: direction * CARD_WIDTH, behavior: 'smooth' });
+      function scrollToCard(index: number) {
+        const card = cards[index] as HTMLElement;
+        if (!card) return;
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      function advance() {
+        currentIndex = (currentIndex + 1) % totalCards;
+        scrollToCard(currentIndex);
+      }
+
+      function goBack() {
+        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        scrollToCard(currentIndex);
       }
 
       function startAuto() {
         stopAuto();
         autoTimer = window.setInterval(() => {
           if (!isUserInteracting) {
-            scrollByCard(1);
+            advance();
           }
         }, AUTO_DELAY);
       }
@@ -975,13 +876,13 @@ import Layout from '../layouts/Layout.astro';
 
       prevBtn?.addEventListener('click', () => {
         pause();
-        scrollByCard(-1);
+        goBack();
         scheduleResume();
       });
 
       nextBtn?.addEventListener('click', () => {
         pause();
-        scrollByCard(1);
+        advance();
         scheduleResume();
       });
 
