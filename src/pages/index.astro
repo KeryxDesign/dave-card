@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Dave Filippini — Brand Strategist & Creative Director">
+<Layout title="Dave Filippini — Imprenditore con radici nel design a risposta diretta">
   <style>
     body {
       display: flex;
@@ -96,11 +96,10 @@ import Layout from '../layouts/Layout.astro';
 
     .tagline {
       font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--gold-muted);
-      text-transform: uppercase;
-      letter-spacing: 3.5px;
+      letter-spacing: 0.5px;
     }
 
     /* ── Bio ── */
@@ -501,13 +500,13 @@ import Layout from '../layouts/Layout.astro';
     <header class="header">
       <img src={`${import.meta.env.BASE_URL}dave.jpg`} alt="Dave Filippini" class="avatar" />
       <h1 class="name">Dave Filippini</h1>
-      <p class="tagline">Brand Strategist &amp; Creative Director</p>
+      <p class="tagline">Imprenditore con radici nel design a risposta diretta</p>
     </header>
 
     <!-- Bio -->
     <p class="bio">
-      <span data-lang-en>I partner with people who are building something real. If your project deserves to be seen, I'll give it a <strong>brand</strong>, a <strong>website</strong>, and a <strong>strategy</strong> to reach the people who need it.</span>
-      <span data-lang-it>Lavoro con chi sta costruendo qualcosa di vero. Se il tuo progetto merita di essere visto, gli darò un <strong>brand</strong>, un <strong>sito web</strong> e una <strong>strategia</strong> per raggiungere le persone giuste.</span>
+      <span data-lang-en>First Italian student of <strong>Lori Haller</strong>, legend of direct response design in the United States. For 3 years I led the graphic department of <strong>Metodo Merenda</strong>, Italy's largest direct marketing company. I founded <strong>Keryx Design</strong> to help businesses generate revenue by creating graphics that don't look like advertising.</span>
+      <span data-lang-it>Primo allievo italiano di <strong>Lori Haller</strong>, leggenda del direct response design negli Stati Uniti. Per 3 anni ho diretto il reparto grafico di <strong>Metodo Merenda</strong>, la più grande azienda italiana di direct marketing. Ho fondato <strong>Keryx Design</strong> per aiutare le imprese a generare fatturato creando grafiche che non sembrano pubblicità.</span>
     </p>
 
     <!-- Testimonials Carousel -->
@@ -814,7 +813,7 @@ import Layout from '../layouts/Layout.astro';
         document.getElementById('btn-it')!.classList.toggle('active', l === 'it');
         document.getElementById('btn-en')!.classList.toggle('active', l === 'en');
 
-        document.title = 'Dave Filippini — Brand Strategist & Creative Director';
+        document.title = 'Dave Filippini — Imprenditore con radici nel design a risposta diretta';
 
         const waMsg = l === 'it'
           ? 'Ciao Dave! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'

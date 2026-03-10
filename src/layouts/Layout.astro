@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Brand Strategist & Creative Director. I give ideas a voice." } = Astro.props;
+const { title, description = "Imprenditore con radici nel design a risposta diretta. Fondatore di Keryx Design." } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, 'https://davefilippini.com');
 ---
 
@@ -49,21 +49,21 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://davefilippini.com');
     }
 
     :root {
-      --bg: #071222;
-      --bg-deep: #040d1a;
-      --surface: #0d1b33;
-      --surface-hover: #112242;
-      --border: #1a2d50;
+      --bg: #0a0a0a;
+      --bg-deep: #050505;
+      --surface: #141414;
+      --surface-hover: #1c1c1c;
+      --border: #252525;
       --border-gold: rgba(191, 155, 72, 0.25);
       --gold: #bf9b48;
       --gold-light: #d4b060;
       --gold-muted: rgba(191, 155, 72, 0.6);
       --gold-glow: rgba(191, 155, 72, 0.12);
       --text: #e4ddd0;
-      --text-muted: #8a96ab;
-      --text-dim: #556178;
+      --text-muted: #999999;
+      --text-dim: #666666;
       --white: #f5f0e8;
-      --navy-text: #071222;
+      --navy-text: #0a0a0a;
       --radius: 14px;
       --transition: cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -75,7 +75,7 @@ const canonicalURL = new URL(Astro.url.pathname, 'https://davefilippini.com');
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
     }
