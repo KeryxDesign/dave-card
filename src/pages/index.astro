@@ -116,8 +116,12 @@ import Layout from '../layouts/Layout.astro';
     .bio strong { color: var(--white); font-weight: 600; }
 
     /* ── Testimonials Carousel ── */
-    .testimonials {
+    .testimonials-wrapper {
+      position: relative;
       margin-bottom: 32px;
+    }
+
+    .testimonials {
       position: relative;
       overflow-x: auto;
       overflow-y: hidden;
@@ -128,6 +132,44 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .testimonials::-webkit-scrollbar { display: none; }
+
+    .testimonials-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: all 0.3s var(--transition);
+      opacity: 0.8;
+    }
+
+    .testimonials-arrow:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-gold);
+      opacity: 1;
+    }
+
+    .testimonials-arrow--left { left: -4px; }
+    .testimonials-arrow--right { right: -4px; }
+
+    .testimonials-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
     .testimonials__track {
       display: flex;
@@ -500,7 +542,10 @@ import Layout from '../layouts/Layout.astro';
     <header class="header">
       <img src={`${import.meta.env.BASE_URL}dave.jpg`} alt="Dave Filippini" class="avatar" />
       <h1 class="name">Dave Filippini</h1>
-      <p class="tagline">Imprenditore con radici nel design a risposta diretta</p>
+      <p class="tagline">
+        <span data-lang-en>Entrepreneur with roots in direct response design</span>
+        <span data-lang-it>Imprenditore con radici nel design a risposta diretta</span>
+      </p>
     </header>
 
     <!-- Bio -->
@@ -510,6 +555,13 @@ import Layout from '../layouts/Layout.astro';
     </p>
 
     <!-- Testimonials Carousel -->
+    <div class="testimonials-wrapper">
+    <button class="testimonials-arrow testimonials-arrow--left" id="testimonials-prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="testimonials-arrow testimonials-arrow--right" id="testimonials-next" aria-label="Next">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
     <div class="testimonials">
       <div class="testimonials__track">
         <!-- Set 1 -->
@@ -655,6 +707,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <div class="divider"></div>
@@ -813,7 +866,9 @@ import Layout from '../layouts/Layout.astro';
         document.getElementById('btn-it')!.classList.toggle('active', l === 'it');
         document.getElementById('btn-en')!.classList.toggle('active', l === 'en');
 
-        document.title = 'Dave Filippini — Imprenditore con radici nel design a risposta diretta';
+        document.title = l === 'it'
+          ? 'Dave Filippini — Imprenditore con radici nel design a risposta diretta'
+          : 'Dave Filippini — Entrepreneur with roots in direct response design';
 
         const waMsg = l === 'it'
           ? 'Ciao Dave! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'
@@ -910,6 +965,23 @@ import Layout from '../layouts/Layout.astro';
         clearTimeout(scrollEndTimer);
         scrollEndTimer = window.setTimeout(scheduleResume, 150);
       }, { passive: true });
+
+      // Arrow buttons
+      const prevBtn = document.getElementById('testimonials-prev');
+      const nextBtn = document.getElementById('testimonials-next');
+      const cardWidth = 296; // 280px + 16px gap
+
+      prevBtn?.addEventListener('click', () => {
+        pause();
+        container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        scheduleResume();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        pause();
+        container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        scheduleResume();
+      });
 
       requestAnimationFrame(autoScroll);
     })();
