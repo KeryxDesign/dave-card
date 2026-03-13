@@ -1,0 +1,894 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Dave Filippini — Entrepreneur & Founder of Keryx Design">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    /* Paper texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.06'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='fine'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23fine)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Language Toggle ── */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      transition: all 0.3s var(--transition);
+    }
+
+    .lang-btn:hover { color: var(--text-muted); }
+
+    .lang-btn.active {
+      color: var(--gold);
+      border-color: var(--border-gold);
+      background: var(--gold-glow);
+    }
+
+    .lang-btn .flag { font-size: 16px; line-height: 1; }
+
+    .lang-sep { color: var(--text-dim); font-size: 12px; opacity: 0.4; }
+
+    /* ── Avatar ── */
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+      border: 2px solid var(--border-gold);
+      box-shadow: 0 0 30px var(--gold-glow);
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    /* ── Header ── */
+    .header { text-align: center; margin-bottom: 24px; }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Bio ── */
+    .bio {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .bio strong { color: var(--gold-light); font-weight: 600; }
+
+    /* ── Testimonials Carousel ── */
+    .testimonials-wrapper {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .testimonials {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .testimonials::-webkit-scrollbar { display: none; }
+
+    .testimonials-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: all 0.3s var(--transition);
+      opacity: 0.8;
+    }
+
+    .testimonials-arrow:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-gold);
+      opacity: 1;
+    }
+
+    .testimonials-arrow--left { left: -4px; }
+    .testimonials-arrow--right { right: -4px; }
+
+    .testimonials-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .testimonials__track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      padding: 0 calc(50% - 140px);
+    }
+
+    .testimonial {
+      flex-shrink: 0;
+      width: 280px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      position: relative;
+      scroll-snap-align: center;
+      transition: opacity 0.3s var(--transition);
+    }
+
+    .testimonial__quote {
+      font-size: 13px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .testimonial__quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-style: normal;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 0;
+      vertical-align: -0.35em;
+      margin-right: 2px;
+    }
+
+    .testimonial__author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .testimonial__avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-gold);
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+
+    .testimonial__info { min-width: 0; }
+
+    .testimonial__name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.3;
+    }
+
+    .testimonial__role {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-dim);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 480px) {
+      .testimonial { width: 280px; padding: 18px 20px; }
+      .testimonial__quote { font-size: 15px; line-height: 1.7; }
+      .testimonial__name { font-size: 14px; }
+      .testimonial__role { font-size: 13px; }
+      .testimonial__avatar { width: 32px; height: 32px; }
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.25;
+      margin: 8px 0 32px 0;
+    }
+
+    /* ── Section Label ── */
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    /* ── Service Cards ── */
+    .services-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+
+    .service-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      transition: border-color 0.35s var(--transition), transform 0.35s var(--transition), box-shadow 0.35s var(--transition);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-glow), transparent);
+      opacity: 0;
+      transition: opacity 0.35s var(--transition);
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(191, 155, 72, 0.1);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover .service-card__arrow { opacity: 1; transform: translateX(0); }
+    .service-card:hover .service-card__icon svg { stroke: var(--gold); }
+
+    .service-card--featured {
+      border-color: var(--border-gold);
+      background: linear-gradient(135deg, rgba(191, 155, 72, 0.05), var(--surface));
+    }
+
+    .service-card__row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card__icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: rgba(191, 155, 72, 0.08);
+      border: 1px solid rgba(191, 155, 72, 0.1);
+    }
+
+    .service-card__icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-muted);
+      fill: none;
+      transition: stroke 0.35s var(--transition);
+    }
+
+    .service-card__content { flex: 1; min-width: 0; }
+
+    .service-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+
+    .service-card__desc { font-size: 13px; font-weight: 400; color: var(--text-muted); line-height: 1.5; }
+
+    .service-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(191, 155, 72, 0.1);
+      border: 1px solid rgba(191, 155, 72, 0.2);
+      border-radius: 100px;
+      padding: 5px 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .price-old {
+      text-decoration: line-through;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .service-card__slots {
+      display: block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.3px;
+    }
+
+    .service-card__arrow {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      align-self: center;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.35s var(--transition), transform 0.35s var(--transition);
+      color: var(--gold);
+    }
+
+    .service-card__arrow svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; }
+
+    /* ── Connect Buttons ── */
+    .connect-row { display: flex; gap: 10px; margin-bottom: 32px; }
+
+    .connect-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 10px;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      transition: border-color 0.35s var(--transition), color 0.35s var(--transition), transform 0.35s var(--transition);
+    }
+
+    .connect-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    .connect-btn svg { width: 16px; height: 16px; flex-shrink: 0; transition: fill 0.35s var(--transition), stroke 0.35s var(--transition); }
+    .connect-btn:hover svg { fill: var(--gold); stroke: var(--gold); }
+
+    .connect-btn--wa { border-color: rgba(37, 211, 102, 0.25); }
+    .connect-btn--wa:hover { border-color: #25D366; color: #25D366; }
+    .connect-btn--wa:hover svg { fill: #25D366; }
+
+    /* ── Logo icons ── */
+    .service-card__icon--logo { background: transparent; border: none; }
+    .service-card__icon--logo svg { width: 28px; height: 28px; stroke: none; }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .footer__legal {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 11px;
+    }
+
+    .footer__links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s var(--transition);
+    }
+
+    .footer__links a:hover { color: var(--gold); }
+
+    /* ── i18n ── */
+    [data-lang-en] { display: none; }
+    [data-lang-it] { display: none; }
+    html[data-lang="en"] [data-lang-en] { display: inline; }
+    html[data-lang="it"] [data-lang-it] { display: inline; }
+    html[data-lang="en"] [data-lang-en].d-block { display: block; }
+    html[data-lang="it"] [data-lang-it].d-block { display: block; }
+    html[data-lang="en"] [data-lang-en].d-flex { display: flex; }
+    html[data-lang="it"] [data-lang-it].d-flex { display: flex; }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      body { padding: 28px 16px; align-items: flex-start; }
+      .name { font-size: 32px; }
+      .tagline { font-size: 13px; letter-spacing: 2px; }
+      .bio { font-size: 16px; line-height: 1.7; padding: 0; }
+      .section-label { font-size: 14px; letter-spacing: 2.5px; }
+      .service-card { padding: 20px 18px; }
+      .service-card__icon { width: 40px; height: 40px; }
+      .service-card__title { font-size: 18px; }
+      .service-card__desc { font-size: 15px; line-height: 1.6; }
+      .service-card__badge { font-size: 13px; padding: 6px 16px; }
+      .connect-btn { padding: 14px 12px; font-size: 14px; gap: 8px; }
+      .connect-btn svg { width: 17px; height: 17px; }
+      .footer__legal { font-size: 12px; }
+      .footer__links { font-size: 12px; }
+    }
+  </style>
+
+  <div class="card">
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+      <button class="lang-btn" data-set-lang="it" id="btn-it">
+        <span class="flag">&#127470;&#127481;</span> IT
+      </button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-set-lang="en" id="btn-en">
+        <span class="flag">&#127468;&#127463;</span> EN
+      </button>
+    </div>
+
+
+    <!-- Header -->
+    <header class="header">
+      <img src={`${import.meta.env.BASE_URL}dave.jpg`} alt="Dave Filippini" class="avatar" />
+      <h1 class="name"><span data-lang-en>Dave Filippini</span><span data-lang-it>Davide Filippini</span></h1>
+      <p class="tagline">
+        <span data-lang-en>Entrepreneur &amp; Founder of Keryx Design</span>
+        <span data-lang-it>Imprenditore &amp; Fondatore di Keryx Design</span>
+      </p>
+    </header>
+
+    <!-- Bio -->
+    <p class="bio">
+      <span data-lang-en>First Italian student of <strong>Lori Haller</strong>, legend of direct response design in the United States. For 3 years I led the graphic department of <strong>Metodo Merenda</strong>, Italy's largest direct marketing company. I founded <strong>Keryx Design</strong> to help businesses generate revenue by creating graphics that don't look like advertising.</span>
+      <span data-lang-it>Primo allievo italiano di <strong>Lori Haller</strong>, leggenda del direct response design negli Stati Uniti. Per 3 anni ho diretto il reparto grafico di <strong>Metodo Merenda</strong>, la più grande azienda italiana di direct marketing. Ho fondato <strong>Keryx Design</strong> per aiutare le imprese a generare fatturato creando grafiche che non sembrano pubblicità.</span>
+    </p>
+
+    <!-- Testimonials Carousel -->
+    <div class="testimonials-wrapper">
+    <button class="testimonials-arrow testimonials-arrow--left" id="testimonials-prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="testimonials-arrow testimonials-arrow--right" id="testimonials-next" aria-label="Next">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="testimonials">
+      <div class="testimonials__track">
+        <!-- Set 1 -->
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>The only one in Italy I trust with my clients' work. His ability to elevate my words is impeccable.</span><span data-lang-it>L'unico in Italia a cui affido i lavori dei miei clienti. La sua capacità di elevare le mie parole è impeccabile.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/daniel-porro.webp" alt="Daniel Porro" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Daniel Porro</div>
+              <div class="testimonial__role">Copywriter</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>In two weeks of pre-launch I almost reached break-even. Davide combines design and strategy.</span><span data-lang-it>Nelle due settimane di pre-lancio ho quasi raggiunto il break-even. Davide unisce design e strategia.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/nicola-serafini.webp" alt="Nicola Serafini" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Nicola Serafini</div>
+              <div class="testimonial__role">Copywriter Senior</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Davide managed to combine graphic design and strategy perfectly. Every visual element made sense even without explanations.</span><span data-lang-it>Davide è riuscito a combinare perfettamente graphic design e strategia. Ogni elemento visivo aveva senso anche senza spiegazioni.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/massimo-usai.webp" alt="Massimo Usai" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Massimo Usai</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>A highly professional result that reflects the care of our services.</span><span data-lang-it>Risultato altamente professionale che riflette la cura dei nostri servizi.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/andrea-dallan.webp" alt="Andrea Dallan" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Andrea Dallan</div>
+              <div class="testimonial__role">CEO, Dallan S.p.a.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>I couldn't imagine entrusting my materials to any other designer in the world.</span><span data-lang-it>Non potrei immaginare di affidare i miei materiali a nessun altro designer al mondo.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/fabrizio-marino.webp" alt="Fabrizio Marino" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Fabrizio Marino</div>
+              <div class="testimonial__role">3D4Steel</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Strategic design that speaks directly to the customer. Measurable results from day one.</span><span data-lang-it>Design strategico che parla direttamente al cliente. Risultati misurabili fin dal primo giorno.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/giacomo-brandi.webp" alt="Giacomo Brandi" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Giacomo Brandi</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial__quote"><span data-lang-en>Professionalism and attention to detail. The design made the difference in our results.</span><span data-lang-it>Professionalità e attenzione ai dettagli. Il design ha fatto la differenza nei nostri risultati.</span></p>
+          <div class="testimonial__author">
+            <img class="testimonial__avatar" src="/testimonials/michelangelo-munarini.webp" alt="Michelangelo Munarini" loading="lazy" />
+            <div class="testimonial__info">
+              <div class="testimonial__name">Michelangelo Munarini</div>
+              <div class="testimonial__role"><span data-lang-en>Entrepreneur</span><span data-lang-it>Imprenditore</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- What I Do -->
+    <p class="section-label">
+      <span data-lang-en>What I Do</span>
+      <span data-lang-it>Cosa Faccio</span>
+    </p>
+
+    <div class="services-grid">
+      <!-- Card 1: Keryx Design (featured) -->
+      <a href="https://keryxdesign.com" target="_blank" rel="noopener noreferrer" class="service-card service-card--featured" data-track="keryx-design">
+        <div class="service-card__row">
+          <div class="service-card__icon service-card__icon--logo">
+            <!-- Keryx "K" monogram -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="rgba(191,155,72,0.12)"/>
+              <path d="M11 8v16M11 16l8-8M11 16l8 8" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="service-card__content">
+            <div class="service-card__title">Keryx Design</div>
+            <div class="service-card__desc">
+              <span data-lang-en>Direct response design services for businesses that measure their results.</span>
+              <span data-lang-it>Servizi di design a risposta diretta per business che misurano i loro risultati.</span>
+            </div>
+          </div>
+          <div class="service-card__arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2: Websites That Convert -->
+      <a href="https://keryxdesign.com/it/sitokeryx" target="_blank" rel="noopener noreferrer" class="service-card" id="website-card" data-track="websites">
+        <div class="service-card__row">
+          <div class="service-card__icon service-card__icon--logo">
+            <!-- Code/web icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="rgba(191,155,72,0.08)"/>
+              <path d="M12 10l-5 6 5 6M20 10l5 6-5 6M18 8l-4 16" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="service-card__content">
+            <div class="service-card__title">
+              <span data-lang-en>Your First Website</span>
+              <span data-lang-it>Il Tuo Primo Sito</span>
+            </div>
+            <div class="service-card__desc">
+              <span data-lang-en>Professional websites designed to turn visitors into customers.</span>
+              <span data-lang-it>Siti web professionali progettati per trasformare visitatori in clienti.</span>
+            </div>
+            <div class="service-card__badge">
+              <span class="price-old">600&euro;</span> 297&euro;
+            </div>
+            <div class="service-card__slots">
+              <span data-lang-en>Only 2 spots for March at this price</span>
+              <span data-lang-it>Solo 2 spot per marzo a questo prezzo</span>
+            </div>
+          </div>
+          <div class="service-card__arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3: Hotaru42 -->
+      <a href="https://hotaru42.com" target="_blank" rel="noopener noreferrer" class="service-card" data-track="hotaru42">
+        <div class="service-card__row">
+          <div class="service-card__icon service-card__icon--logo">
+            <!-- Hotaru42 firefly icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="6" fill="rgba(155,89,182,0.1)"/>
+              <circle cx="16" cy="14" r="3" fill="#9b59b6" opacity="0.7"/>
+              <circle cx="16" cy="14" r="5" stroke="#9b59b6" stroke-width="1" opacity="0.3"/>
+              <path d="M13 18q3 6 6 0" stroke="#9b59b6" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M12 10l-2-3M20 10l2-3" stroke="#9b59b6" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="service-card__content">
+            <div class="service-card__title">Hotaru42</div>
+            <div class="service-card__desc">
+              Folk Psychedelic Music
+            </div>
+          </div>
+          <div class="service-card__arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Connect -->
+    <p class="section-label">
+      <span data-lang-en>Connect</span>
+      <span data-lang-it>Contatti</span>
+    </p>
+
+    <div class="connect-row">
+      <a href="https://www.linkedin.com/in/davefilippini" target="_blank" rel="noopener noreferrer" class="connect-btn" data-track="linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="mailto:info@keryxdesign.com" class="connect-btn" data-track="email">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+        </svg>
+        Email
+      </a>
+      <a class="connect-btn connect-btn--wa" id="wa-fab" href="#" target="_blank" rel="noopener noreferrer" data-track="whatsapp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__legal">
+        Keryx Design di Davide Filippini — P.IVA M26525203S
+      </p>
+      <div class="footer__links">
+        <a href="https://keryxdesign.com/it/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+        <a href="mailto:info@keryxdesign.com">info@keryxdesign.com</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // ── i18n ──
+    (function() {
+      const STORAGE_KEY = 'dave-card-lang';
+      const saved = localStorage.getItem(STORAGE_KEY);
+      let lang: string;
+
+      if (saved === 'it' || saved === 'en') {
+        lang = saved;
+      } else {
+        const browserLang = (navigator.language || 'en').toLowerCase();
+        lang = browserLang.startsWith('it') ? 'it' : 'en';
+      }
+
+      function setLang(l: string) {
+        lang = l;
+        localStorage.setItem(STORAGE_KEY, l);
+        document.documentElement.setAttribute('data-lang', l);
+        document.documentElement.lang = l;
+
+        document.getElementById('btn-it')!.classList.toggle('active', l === 'it');
+        document.getElementById('btn-en')!.classList.toggle('active', l === 'en');
+
+        document.title = l === 'it'
+          ? 'Davide Filippini — Imprenditore & Fondatore di Keryx Design'
+          : 'Dave Filippini — Entrepreneur & Founder of Keryx Design';
+
+        const waMsg = l === 'it'
+          ? 'Ciao Davide! Ti contatto dal tuo sito personale. Vorrei saperne di più sui tuoi servizi.'
+          : "Hi Dave! I found you through your personal site. I'd like to learn more about your services.";
+        document.getElementById('wa-fab')!.setAttribute('href',
+          'https://wa.me/355695822380?text=' + encodeURIComponent(waMsg));
+
+        const websiteCard = document.getElementById('website-card');
+        if (websiteCard) {
+          websiteCard.setAttribute('href', 'https://keryxdesign.com/it/sitokeryx');
+        }
+      }
+
+      setLang(lang);
+      document.getElementById('btn-it')!.addEventListener('click', () => setLang('it'));
+      document.getElementById('btn-en')!.addEventListener('click', () => setLang('en'));
+    })();
+
+    // ── Click Tracking ──
+    (function() {
+      const CLICKS_KEY = 'dave-card-clicks';
+
+      function getClicks(): Record<string, { count: number; last: string; history: string[] }> {
+        try { return JSON.parse(localStorage.getItem(CLICKS_KEY) || '{}'); }
+        catch { return {}; }
+      }
+
+      function trackClick(name: string) {
+        const clicks = getClicks();
+        const now = new Date().toISOString();
+        if (!clicks[name]) clicks[name] = { count: 0, last: '', history: [] };
+        clicks[name].count++;
+        clicks[name].last = now;
+        clicks[name].history.push(now);
+        // Keep only last 100 entries per link
+        if (clicks[name].history.length > 100) clicks[name].history = clicks[name].history.slice(-100);
+        localStorage.setItem(CLICKS_KEY, JSON.stringify(clicks));
+      }
+
+      document.querySelectorAll('[data-track]').forEach(el => {
+        el.addEventListener('click', () => {
+          const name = (el as HTMLElement).dataset.track!;
+          trackClick(name);
+        });
+      });
+    })();
+
+    // ── Testimonials Auto-scroll ──
+    (function() {
+      const container = document.querySelector('.testimonials') as HTMLElement;
+      if (!container) return;
+
+      const CARD_WIDTH = 296; // 280px + 16px gap
+      const AUTO_DELAY = 4000; // auto-advance every 4s
+      const RESUME_DELAY = 5000; // resume after user interaction
+      const cards = container.querySelectorAll('.testimonial');
+      const totalCards = cards.length;
+      let currentIndex = 0;
+
+      let autoTimer: number;
+      let isUserInteracting = false;
+
+      function scrollToCard(index: number) {
+        const card = cards[index] as HTMLElement;
+        if (!card) return;
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      function advance() {
+        currentIndex = (currentIndex + 1) % totalCards;
+        scrollToCard(currentIndex);
+      }
+
+      function goBack() {
+        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        scrollToCard(currentIndex);
+      }
+
+      function startAuto() {
+        stopAuto();
+        autoTimer = window.setInterval(() => {
+          if (!isUserInteracting) {
+            advance();
+          }
+        }, AUTO_DELAY);
+      }
+
+      function stopAuto() {
+        clearInterval(autoTimer);
+      }
+
+      function pause() {
+        isUserInteracting = true;
+        stopAuto();
+      }
+
+      function scheduleResume() {
+        window.setTimeout(() => {
+          isUserInteracting = false;
+          startAuto();
+        }, RESUME_DELAY);
+      }
+
+      // Touch: pause while swiping
+      container.addEventListener('touchstart', pause, { passive: true });
+      container.addEventListener('touchend', () => scheduleResume(), { passive: true });
+
+      // Mouse: pause on hover
+      container.addEventListener('mouseenter', pause);
+      container.addEventListener('mouseleave', () => scheduleResume());
+
+      // Arrow buttons
+      const prevBtn = document.getElementById('testimonials-prev');
+      const nextBtn = document.getElementById('testimonials-next');
+
+      prevBtn?.addEventListener('click', () => {
+        pause();
+        goBack();
+        scheduleResume();
+      });
+
+      nextBtn?.addEventListener('click', () => {
+        pause();
+        advance();
+        scheduleResume();
+      });
+
+      startAuto();
+    })();
+  </script>
+</Layout>
